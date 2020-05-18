@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\messages;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MessagesController extends Controller
 {
@@ -14,7 +15,10 @@ class MessagesController extends Controller
      */
     public function index()
     {
-        return view('messages.index', ['messages' => messages::all()]);
+        $messages = messages::join('users', 'users.id', '=', 'messages.user_id')
+            ->select('messages.*', 'users.name')    
+            ->get();
+        return view('messages.index', ['messages' => $messages]);
     }
 
     /**
@@ -24,7 +28,12 @@ class MessagesController extends Controller
      */
     public function create()
     {
-        //
+        if (!Auth::check())
+        {
+            return redirect('/login');
+        }
+
+        return view('messages.create');
     }
 
     /**
@@ -35,7 +44,21 @@ class MessagesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(!Auth::check())
+        {
+            return redirect('/login');
+        }
+
+        $request->validate([
+            'text' => 'required|max:150'
+        ]);
+
+        messages::create([
+            'text' => $request->text,
+            'user_id' => Auth::id()
+        ]);
+
+        return redirect('/messages');
     }
 
     /**
