@@ -1,9 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use \App\messages;
 
-class MessagesSeeder extends Seeder
+class MessageSeeder extends Seeder
 {
     /**
      * Run the database seeds.
