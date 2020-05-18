@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use \App\messages;
 
-class MessagesSeeder extends Seeder
+class MessagesSeed extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +12,6 @@ class MessagesSeeder extends Seeder
      */
     public function run()
     {
-        factory(messages::class, 15)->make();
+        factory(messages::class, 15)->create()->make();
     }
 }
