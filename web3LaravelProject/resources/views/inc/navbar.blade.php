@@ -11,8 +11,8 @@
             </button>
 
             <!-- Branding Image -->
-            <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel Twitter') }}
+            <a class="navbar-brand" href="{{ url('/messages') }}">
+                Laravel Twitter Clone
             </a>
         </div>
 
@@ -22,11 +22,6 @@
                 &nbsp;
             </ul>
 
-            @if (Auth::check())
-                <ul class="nav navbar-nav">
-                <li><a href="/messages">Home</a></li>
-                </ul>
-            @endif
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
@@ -40,7 +35,7 @@
                         </a>
 
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="/profile">Profile</a></li>
+                            <li><a href="/home">Home</a></li>
                             <li>
                                 <a href="{{ route('logout') }}"
                                     onclick="event.preventDefault();

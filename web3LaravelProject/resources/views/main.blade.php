@@ -4,11 +4,10 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="{{asset('.htaccess')}}">
-        <title>Laravel Twitter</title>
+        <title>{{config('app.name', "Twitter")}}</title>
     </head>
     <body>
         @include('inc.navbar')
-        
        <div class="container">
             @include('inc.errors')
        </div>
@@ -31,12 +30,11 @@
                 <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>
                 
                 <li><a href="/messages/create">Write a message</a></li>
+
+                @section ('main')
+                @show
+                </div>
             @endif
         </ul>
-        </div>
-
-        @section ('main')
-        @show
-        
     </body>
 </html>
