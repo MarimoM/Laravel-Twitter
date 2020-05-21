@@ -22,10 +22,11 @@
                 &nbsp;
             </ul>
 
-            <ul class="nav navbar-nav">
+            @if (Auth::check())
+                <ul class="nav navbar-nav">
                 <li><a href="/messages">Home</a></li>
-            </ul>
-
+                </ul>
+            @endif
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->

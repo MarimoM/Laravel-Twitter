@@ -2,7 +2,7 @@
 
 @section('main')
     
-    <h1>Messages</h1>
+    <h1 class='jumbotron text-center'>Messages</h1>
     <main>
         @if (count($messages) > 0)
         <div class="container">
@@ -10,7 +10,7 @@
             <section>
             <div class="well">
                <h4>{{ $message->name}}</h4> 
-               <small>{{ $message->updated_at }}</small>
+               <small class="pull-right">{{ $message->updated_at }}</small>
                <p>{{ $message->text }}</p>
                <small><a href="/messages/{{$message->id}}">Show more ...</a></small> 
                <button>Reply</button>
