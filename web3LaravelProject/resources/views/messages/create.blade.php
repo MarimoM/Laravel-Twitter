@@ -1,23 +1,14 @@
 @extends('main')
 
 @section('main')
-    <h1>Add message</h1>
-
-    <form action="/messages" method="POST">
-        @csrf
-        <div>
-            <label for="message.text">What are you up to?</label>
+<div class="container">
+    <h1>Create a message</h1>
+    {!! Form::open(['action' => 'MessagesController@store', 'method' => 'POST']) !!}
+        <div class="form-group">
+            {{Form::label('intro', 'What are you up to?')}}
+            {{Form::textarea('text', '', ['class' => 'form-control', 'placeholder' => 'Write here'])}}
         </div>
-        <div>
-            <textarea maxlength="150" name="text" id="message-text"></textarea>
-            @if ($errors->has('text'))
-                @foreach ($errors->get('text') as $message)
-                    <pre>{{ $message }}</pre>
-                @endforeach
-            @endif
-        </div>
-        <div>
-            <button>Send</button>
-        </div>
-    </form>
+        {{Form::submit('Send', ['class' => 'btn btn-primary'])}}
+    {!! Form::close() !!}
+</div>
 @endsection
