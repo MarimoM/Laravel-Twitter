@@ -6357,7 +6357,11 @@ __webpack_require__.r(__webpack_exports__);
   Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
+<<<<<<< HEAD
 //# sourceMappingURL=bootstrap.js.map
+=======
+sourceMappingURL=bootstrap.js.map
+>>>>>>> Margarita_dev
 
 
 /***/ }),
@@ -36986,7 +36990,11 @@ Popper.placements = placements;
 Popper.Defaults = Defaults;
 
 /* harmony default export */ __webpack_exports__["default"] = (Popper);
+<<<<<<< HEAD
 //# sourceMappingURL=popper.js.map
+=======
+sourceMappingURL=popper.js.map;
+>>>>>>> Margarita_dev
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
 
@@ -49684,6 +49692,10 @@ module.exports = function(module) {
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+<<<<<<< HEAD
+=======
+window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")["default"];
+>>>>>>> Margarita_dev
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -49839,8 +49851,13 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 __webpack_require__(/*! C:\wamp64\www\web3laravel\web3LaravelProject\resources\js\app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! C:\wamp64\www\web3laravel\web3LaravelProject\resources\sass\app.scss */"./resources/sass/app.scss");
+=======
+__webpack_require__(/*! C:\Users\Margarita\web3laravel\web3LaravelProject\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Margarita\web3laravel\web3LaravelProject\resources\sass\app.scss */"./resources/sass/app.scss");
+>>>>>>> Margarita_dev
 
 
 /***/ })
