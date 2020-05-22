@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\messages;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\User;
+use DB;
 
 class MessagesController extends Controller
 {
@@ -14,7 +17,11 @@ class MessagesController extends Controller
      */
     public function index()
     {
-        return view('messages.index', ['messages' => messages::all()]);
+        $messages = messages::join('users', 'users.id', '=', 'messages.user_id')
+            ->select('messages.*', 'users.name') 
+            ->orderBy('created_at', 'desc')   
+            ->paginate(10);
+        return view('messages.index', ['messages' => $messages]);
     }
 
     /**
@@ -24,7 +31,12 @@ class MessagesController extends Controller
      */
     public function create()
     {
-        //
+        if (!Auth::check())
+        {
+            return redirect('/login');
+        }
+
+        return view('messages.create');
     }
 
     /**
@@ -35,7 +47,21 @@ class MessagesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(!Auth::check())
+        {
+            return redirect('/login');
+        }
+
+        $request->validate([
+            'text' => 'required|max:150'
+        ]);
+
+        messages::create([
+            'text' => $request->text,
+            'user_id' => Auth::id()
+        ]);
+
+        return redirect('/messages')->with('success', 'Message sent');
     }
 
     /**
@@ -44,9 +70,11 @@ class MessagesController extends Controller
      * @param  \App\messages  $messages
      * @return \Illuminate\Http\Response
      */
-    public function show(messages $messages)
+    public function show($id)
     {
-        //
+        $message = messages::find($id);
+        $user = User::find($message->user_id);
+        return view('messages.show', ['user' => $user])->with('message', $message);
     }
 
     /**
@@ -55,9 +83,10 @@ class MessagesController extends Controller
      * @param  \App\messages  $messages
      * @return \Illuminate\Http\Response
      */
-    public function edit(messages $messages)
+    public function edit($id)
     {
-        //
+        $message = messages::find($id);
+        return view('messages.edit')->with('message', $message);
     }
 
     /**
@@ -67,9 +96,22 @@ class MessagesController extends Controller
      * @param  \App\messages  $messages
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, messages $messages)
+    public function update(Request $request, $id)
     {
-        //
+        if(!Auth::check())
+        {
+            return redirect('/login');
+        }
+
+        $request->validate([
+            'text' => 'required|max:150'
+        ]);
+
+        $message = messages::find($id);
+        $message->text = $request->input('text');
+        $message->save();
+
+        return redirect('/messages')->with('success', 'Message updated');
     }
 
     /**
@@ -78,8 +120,10 @@ class MessagesController extends Controller
      * @param  \App\messages  $messages
      * @return \Illuminate\Http\Response
      */
-    public function destroy(messages $messages)
+    public function destroy($id)
     {
-        //
+        $message = messages::find($id);
+        $message->delete();
+        return redirect('/messages')->with('success', 'Message has been deleted');
     }
 }

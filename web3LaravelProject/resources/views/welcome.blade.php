@@ -1,6 +1,11 @@
-@extends('main')
-
-@section('main')
-    <h1>Messages</h1>
-    <p>Go find <a href='/messages'>messages</a></p>
-@endsection
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+    
+</body>
+</html>
