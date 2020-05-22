@@ -1,16 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{{asset('.htaccess')}}">
-        <title>{{config('app.name', "Twitter")}}</title>
-    </head>
+@extends('layouts.app')
+
+@section('content')
     <body>
-        @include('inc.navbar')
-       <div class="container">
-            @include('inc.errors')
-       </div>
             @if (!Auth::check())
             <div class='jumbotron text-center'>
                 <h1>Welcome To Laravel Twitter</h1>
@@ -38,3 +29,4 @@
         </ul>
     </body>
 </html>
+@endsection
