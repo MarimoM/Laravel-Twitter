@@ -8,17 +8,17 @@
         <div class="container">
             @foreach ($messages as $message)
             <section>
-            <div class="well">
+            <div class="card card-body bg-light mt-3">
                <h4>{{ $message->name}}</h4> 
-               <small class="pull-right">{{ $message->updated_at }}</small>
+               <small class="float-right">{{ $message->updated_at }}</small>
                <p>{{ $message->text }}</p>
                <small><a href="/messages/{{$message->id}}">Show more ...</a></small> 
-               <button>Reply</button>
+               <a href="/messages/{{$message->id}}/reply" class="btn btn-light btn-sm float-left">Reply</a>
             </div>
             </section>
             @endforeach
         </div>
-        <div class='jumbotron text-center'>
+        <div class='container text-center mt-3'>
             {{ $messages->links() }}
         </div>
         
