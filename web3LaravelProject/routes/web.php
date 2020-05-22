@@ -20,7 +20,17 @@ Route::get('/', function () {
         return view('main');
 });
 
+Route::get('/profile', function () {
+    if(Auth::check())
+        return redirect('/profile');
+    else
+        return view('main');
+});
+
+
+
 Route::resource('/messages', 'MessagesController');
+Route::resource('profile', 'ProfileController');
 
 Auth::routes();
 
