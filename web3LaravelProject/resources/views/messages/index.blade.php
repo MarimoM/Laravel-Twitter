@@ -9,7 +9,7 @@
             @foreach ($messages as $message)
             <section>
             <div class="card card-body bg-light mt-3">
-               <h4>{{ $message->name}}</h4> 
+               <h4>{{ $message->first_name}}</h4> 
                <small class="float-right">{{ $message->updated_at }}</small>
                <p>{{ $message->text }}</p>
                <small><a href="/messages/{{$message->id}}">Show more ...</a></small> 

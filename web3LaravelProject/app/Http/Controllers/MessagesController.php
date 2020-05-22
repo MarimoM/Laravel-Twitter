@@ -18,7 +18,7 @@ class MessagesController extends Controller
     public function index()
     {
         $messages = messages::join('users', 'users.id', '=', 'messages.user_id')
-            ->select('messages.*', 'users.name') 
+            ->select('messages.*', 'users.first_name') 
             ->orderBy('created_at', 'desc')   
             ->paginate(10);
         return view('messages.index', ['messages' => $messages]);

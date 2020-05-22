@@ -3,7 +3,7 @@
 @section('main')
 <div class="container">
     <h1>Thread</h1>
-    <h2>{{$user->name}}</h2>
+    <h2>{{$user->first_name}}</h2>
     <small class="float-right">{{$message->created_at}}</small>
     <div>
         {{$message->text}}
