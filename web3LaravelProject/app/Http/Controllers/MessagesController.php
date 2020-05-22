@@ -53,13 +53,28 @@ class MessagesController extends Controller
         }
 
         $request->validate([
-            'text' => 'required|max:150'
+            'text' => 'required|max:150',
+            'cover_image' => 'image|nullable|max:1999'
         ]);
 
-        messages::create([
-            'text' => $request->text,
-            'user_id' => Auth::id()
-        ]);
+        if($request->hasFile('cover_image'))
+        {
+            $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extention = $request->file('cover_image')->getClientOriginalExtension();
+            $fileNameToStore = $filename.'_'.time().'.'.$extention;
+            $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
+        }
+        else
+        {
+            $fileNameToStore = 'noimage.jpg';
+        }
+
+        $message = new messages;
+        $message->text = $request->text;
+        $message->user_id = auth()->User()->id;
+        $message->cover_image = $fileNameToStore;
+        $message->save();
 
         return redirect('/messages')->with('success', 'Message sent');
     }
