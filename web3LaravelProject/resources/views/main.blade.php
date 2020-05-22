@@ -14,14 +14,6 @@
         <ul>
             @if (Auth::check())
                 <div class="container">
-                <li><a href="{{ route('logout') }}" 
-                    onclick="event.preventDefault(); 
-                    document.getElementById('frm-logout').submit();">Logout</a>
-                </li>
-                <form id="frm-logout" action="{{ route('logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>
-                
-                <li><a href="/messages/create">Write a message</a></li>
-
                 @section ('main')
                 @show
                 </div>

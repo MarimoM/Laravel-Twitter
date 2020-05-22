@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-dark bg-dark">
     <div class="container">
         <div class="navbar-header">
 
@@ -27,6 +27,7 @@
 
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="/profile">Profile</a></li>
+                            <li><a href="/messages/create">Write a message</a></li>
                             <li>
                                 <a href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
