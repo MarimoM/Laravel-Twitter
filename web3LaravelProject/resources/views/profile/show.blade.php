@@ -1,23 +1,36 @@
 @extends('main')
 
+
 @section('main')
-<div class="container">
-    <h1>Thread</h1>
-    <h2>{{$user->name}}</h2>
-    <small class="pull-right">{{$message->created_at}}</small>
-    <div>
-        {{$message->text}}
-    </div>
-
-    @if(Auth::id() == $message->user_id)
-    
-    <hr>
-    <a href="/messages/{{$message->id}}/edit" class="btn btn-default">Edit</a>
-    {!!Form::open(['action' => ['MessagesController@destroy', $message->id], 'method' => 'POST', 'class' => 'pull-right'])!!}
-        {{Form::hidden('_method', 'DELETE')}}
-        {{Form::submit('Remove', ['class' => 'btn btn-danger'])}}
-    {!!Form::close()!!}
-    @endif
+<div class="row">
+<div class="col-sm-12">
+    <h1 class="display-3">Contacts</h1>    
+  <table class="table table-striped">
+    <thead>
+        <tr>
+          <td>ID</td>
+          <td>Name</td>
+          <td>Email</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{$user->id}}</td>
+            <td>{{$user->name}}
+            <td>{{$user->email}}</td>
+            <td>
+                <a href="{{ route('profile.edit', $user->id)}}" class="btn btn-primary">Edit</a>
+            </td>
+            <td>
+                <form action="{{ route('profile.destroy', $user->id)}}" method="post">
+                  @csrf
+                  @method('DELETE')
+                  <button class="btn btn-danger" type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+<div>
 </div>
-
 @endsection

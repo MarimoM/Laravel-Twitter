@@ -16,9 +16,9 @@
     <tbody>
         @foreach($users as $user)
         <tr>
-            <td>{{$user->id}}</td>
-            <td>{{$user->name}}
-            <td>{{$user->email}}</td>
+            <td><a href="{{ route('profile.show', $user->id)}}">{{$user->id}}</a></td>
+            <td><a href="{{ route('profile.show', $user->id)}}">{{$user->name}}</a></td>
+            <td><a href="{{ route('profile.show', $user->id)}}">{{$user->email}}</a></td>
             <td>
                 <a href="{{ route('profile.edit', $user->id)}}" class="btn btn-primary">Edit</a>
             </td>

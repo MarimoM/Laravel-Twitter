@@ -48,8 +48,9 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
+    {   
+        $user = User::find($id);
+        return view('profile.show', compact('user'));
     }
 
     /**
@@ -59,10 +60,10 @@ class ProfileController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
+    
     {
         $user = User::find($id);
-        return view('profile.edit', compact('users'));        
+        return view('profile.edit', compact('user'));        
     }
     /**
      * Update the specified resource in storage.
@@ -74,21 +75,16 @@ class ProfileController extends Controller
     public function update(Request $request, $id)
     {
          $request->validate([
-            'first_name'=>'required',
-            'last_name'=>'required',
+            'name'=>'required',
             'email'=>'required'
         ]);
 
-        $contact = Contact::find($id);
-        $contact->first_name =  $request->get('first_name');
-        $contact->last_name = $request->get('last_name');
-        $contact->email = $request->get('email');
-        $contact->job_title = $request->get('job_title');
-        $contact->city = $request->get('city');
-        $contact->country = $request->get('country');
-        $contact->save();
+        $user = User::find($id);
+        $user->name =  $request->get('name');
+        $user->email = $request->get('email');
+        $user->save();
 
-        return redirect('/contacts')->with('success', 'Contact updated!');
+        return redirect('/profile')->with('success', 'User updated!');
     }
 
     /**
@@ -99,6 +95,9 @@ class ProfileController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        $user->delete();
+
+        return redirect('/profile')->with('success', 'User deleted!');
     }
 }
