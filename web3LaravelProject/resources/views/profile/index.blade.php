@@ -9,7 +9,8 @@
     <thead>
         <tr>
           <td>ID</td>
-          <td>Name</td>
+          <td>First name</td>
+          <td>Last name</td>
           <td>Email</td>
         </tr>
     </thead>
@@ -17,7 +18,8 @@
         @foreach($users as $user)
         <tr>
             <td><a href="{{ route('profile.show', $user->id)}}">{{$user->id}}</a></td>
-            <td><a href="{{ route('profile.show', $user->id)}}">{{$user->name}}</a></td>
+            <td><a href="{{ route('profile.show', $user->id)}}">{{$user->first_name}}</a></td>
+             <td><a href="{{ route('profile.show', $user->id)}}">{{$user->last_name}}</a></td>
             <td><a href="{{ route('profile.show', $user->id)}}">{{$user->email}}</a></td>
             <td>
                 <a href="{{ route('profile.edit', $user->id)}}" class="btn btn-primary">Edit</a>

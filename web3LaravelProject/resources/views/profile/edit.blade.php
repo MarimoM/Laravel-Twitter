@@ -19,8 +19,14 @@
             @csrf
             <div class="form-group">
 
-                <label for="first_name">Name:</label>
-                <input type="text" class="form-control" name="name" value={{ $user->name }} />
+                <label for="first_name">First name:</label>
+                <input type="text" class="form-control" name="first_name" value={{ $user->first_name }} />
+            </div>
+
+              <div class="form-group">
+
+                <label for="last_name">Last name:</label>
+                <input type="text" class="form-control" name="last_name" value={{ $user->last_name }} />
             </div>
 
 

@@ -75,12 +75,14 @@ class ProfileController extends Controller
     public function update(Request $request, $id)
     {
          $request->validate([
-            'name'=>'required',
+            'first_name'=>'required',
+            'last_name'=>'required',
             'email'=>'required'
         ]);
 
         $user = User::find($id);
-        $user->name =  $request->get('name');
+        $user->first_name =  $request->get('first_name');
+        $user->last_name =  $request->get('last_name');
         $user->email = $request->get('email');
         $user->save();
 

@@ -9,14 +9,16 @@
     <thead>
         <tr>
           <td>ID</td>
-          <td>Name</td>
+          <td>First name</td>
+          <td>Last name</td>
           <td>Email</td>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>{{$user->id}}</td>
-            <td>{{$user->name}}
+            <td>{{$user->first_name}}
+            <td>{{$user->last_name}}
             <td>{{$user->email}}</td>
             <td>
                 <a href="{{ route('profile.edit', $user->id)}}" class="btn btn-primary">Edit</a>
