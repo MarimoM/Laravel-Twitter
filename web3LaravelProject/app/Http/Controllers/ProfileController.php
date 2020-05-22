@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\User;
 use DB;
@@ -49,8 +50,15 @@ class ProfileController extends Controller
      */
     public function show($id)
     {   
+        if (Auth::user()->id == $id) {
+
         $user = User::find($id);
         return view('profile.show', compact('user'));
+        }
+        else
+        {
+            return view('main');
+        }
     }
 
     /**
