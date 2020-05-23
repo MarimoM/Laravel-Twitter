@@ -14,7 +14,7 @@ class ImagesInMessages extends Migration
     public function up()
     {
         Schema::table('messages', function ($table) {
-            $table->string('cover_image')->nullable();
+            $table->string('image')->nullable();
         });
     }
 
