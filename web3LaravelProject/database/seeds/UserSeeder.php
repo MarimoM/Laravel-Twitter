@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
 
         foreach(range(1, 10) as $index){
             User::create([
-                'first_name' => $faker->name,
+                'first_name' => $faker->first_name,
                 'password' => Hash::make('password'),
                 'email' => $faker->email
             ]);
