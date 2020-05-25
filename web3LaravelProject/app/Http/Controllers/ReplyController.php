@@ -110,8 +110,12 @@ class ReplyController extends Controller
      * @param  \App\Reply  $reply
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Reply $reply)
+    public function destroy($id, $reply_id)
     {
-        //
+        $reply = Reply::find($reply_id);
+        $reply->delete();
+        $message = messages::find($id);
+
+        return redirect()->route('messages.show', ['message' => $message])->with('success', 'Reply has been deleted');
     }
 }

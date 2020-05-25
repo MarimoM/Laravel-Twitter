@@ -18,6 +18,7 @@ class MessagesController extends Controller
             ->select('messages.*', 'users.first_name') 
             ->orderBy('created_at', 'desc')   
             ->paginate(10);
+
         return view('messages.index', ['messages' => $messages]);
     }
 
@@ -65,11 +66,9 @@ class MessagesController extends Controller
     {
         $message = messages::find($id);
         $user = User::find($message->user_id);
-
-        $replies = messages::join('replies', 'replies.message_id', '=', 'messages.id')
-            ->select('replies.*');
         
         $replies = User::join('replies', 'replies.sender_id', '=', 'users.id')
+            ->where('replies.message_id', '=', $id)
             ->select('replies.*', 'users.first_name') 
             ->orderBy('created_at', 'desc')   
             ->paginate(10);

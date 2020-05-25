@@ -11,6 +11,7 @@
             <div class="card card-body bg-light mt-3">
                 <h4>{{ $message->first_name}}</h4> 
                 <small class="float-right">{{ $message->updated_at }}</small>
+                <br>
                 <p>{{ $message->text }}</p> 
                 @if (!is_null($message->cover_image))
                     <img style="width:30%" src="/storage/cover_images/{{$message->cover_image}}">

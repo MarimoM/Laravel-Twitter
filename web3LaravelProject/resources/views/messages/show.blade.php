@@ -20,18 +20,26 @@
             <a href="/messages/{{$message->id}}/edit" class="btn btn-primary btn-sm float-right mr-3">Edit</a>
         @endif
             <a href="/messages/{{$message->id}}/reply/create" class="btn btn-light btn-sm float-left ">Reply</a>
-        
+            <p class="text-center"> {{ count($replies) }} replies </p>
     </div>
 
     <div>
         @foreach ($replies as $reply)
         <section>
-        <div class="card card-body bg-light mt-3">
-            <h4>{{ $reply->first_name}}</h4> 
-            <small class="float-right">{{ $reply->updated_at }}</small>
-            <p>{{ $reply->text }}</p> 
-             <br>
-        </div>
+            @if ($reply->message_id == $message->id)
+            <div class="card card-body bg-light mt-3">
+                <h4>{{ $reply->first_name}}</h4> 
+                <small class="float-right">{{ $reply->updated_at }}</small>
+                <p>{{ $reply->text }}</p> 
+                <br>
+                @if (Auth::id() == $reply->sender_id)
+                    {!!Form::open(['action' => ['ReplyController@destroy', $message->id, $reply->id], 'method' => 'POST', 'class' => 'float-right'])!!}
+                    {{Form::hidden('_method', 'DELETE')}}
+                    {{Form::submit('Remove', ['class' => 'btn btn-danger btn-sm float-right'])}}
+                    {!!Form::close()!!}
+                @endif
+            </div>
+            @endif
         </section>
         @endforeach
     </div>
