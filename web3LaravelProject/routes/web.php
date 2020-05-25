@@ -29,8 +29,11 @@ Route::get('/profile', function () {
 
 
 
-Route::resource('/messages', 'MessagesController');
+
 Route::resource('profile', 'ProfileController');
+
+Route::resource('/messages', 'MessagesController');
+Route::resource('/messages/{message}/reply', 'ReplyController');
 
 Auth::routes();
 

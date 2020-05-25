@@ -57,7 +57,7 @@ class ProfileController extends Controller
         }
         else
         {
-            return view('main');
+            return redirect('/messages');
         }
     }
 
@@ -70,8 +70,15 @@ class ProfileController extends Controller
     public function edit($id)
     
     {
+        if (!Auth::check())
+        {
+            return redirect('/login');
+        }
+        else
+        {
         $user = User::find($id);
-        return view('profile.edit', compact('user'));        
+        return view('profile.edit', compact('user'));  
+        }      
     }
     /**
      * Update the specified resource in storage.
@@ -82,19 +89,35 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (!Auth::check())
+        {
+            return redirect('/login');
+        }
+        else
+        {
          $request->validate([
             'first_name'=>'required',
             'last_name'=>'required',
-            'email'=>'required'
+            'email'=>'required',
+            'image'=>'required'
         ]);
 
         $user = User::find($id);
         $user->first_name =  $request->get('first_name');
         $user->last_name =  $request->get('last_name');
         $user->email = $request->get('email');
+
+        //Used for storing image path in public/images
+        $image = $request->file('image');
+        $path = public_path(). '/images/';
+        $filename = time() . '.' . $image->getClientOriginalExtension();
+        $image->move($path, $filename);
+        $user->profile_image_path = $filename;
+
         $user->save();
 
         return redirect('/profile')->with('success', 'User updated!');
+    }
     }
 
     /**
@@ -105,9 +128,16 @@ class ProfileController extends Controller
      */
     public function destroy($id)
     {
+        if (!Auth::check())
+        {
+            return redirect('/login');
+        }
+        else
+        {
         $user = User::find($id);
         $user->delete();
 
         return redirect('/profile')->with('success', 'User deleted!');
+        }
     }
 }

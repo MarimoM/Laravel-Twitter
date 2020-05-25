@@ -2,7 +2,7 @@
 @section('main')
 <div class="row">
     <div class="col-sm-8 offset-sm-2">
-        <h1 class="display-3">Update a contact</h1>
+        <h1 class="display-3">Update your profile</h1>
 
         @if ($errors->any())
         <div class="alert alert-danger">
@@ -14,7 +14,7 @@
         </div>
         <br /> 
         @endif
-        <form method="post" action="{{ route('profile.update', $user->id) }}">
+        <form method="post" action="{{ route('profile.update', $user->id) }}" enctype="multipart/form-data">
             @method('PATCH') 
             @csrf
             <div class="form-group">
@@ -33,6 +33,11 @@
             <div class="form-group">
                 <label for="email">Email:</label>
                 <input type="text" class="form-control" name="email" value={{ $user->email }} />
+            </div>
+
+             <div class="form-group">
+                <label for="image">Profile picture:</label>
+                <input type="file" name="image">
             </div>
 
             <button type="submit" class="btn btn-primary">Update</button>

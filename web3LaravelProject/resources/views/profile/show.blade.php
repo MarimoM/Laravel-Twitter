@@ -4,7 +4,8 @@
 @section('main')
 <div class="row">
 <div class="col-sm-12">
-    <h1 class="display-3">Contacts</h1>    
+    <h1 class="display-3">Your profile</h1>    
+    <img src="{{asset('images/' . $user->profile_image_path)}}" width="250px" height="250px" alt="MISSING JPG"/> 
   <table class="table table-striped">
     <thead>
         <tr>
