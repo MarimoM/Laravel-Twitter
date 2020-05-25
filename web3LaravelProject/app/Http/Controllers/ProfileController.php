@@ -57,7 +57,7 @@ class ProfileController extends Controller
         }
         else
         {
-            return view('main');
+            return redirect('/messages');
         }
     }
 
@@ -70,8 +70,15 @@ class ProfileController extends Controller
     public function edit($id)
     
     {
+        if (!Auth::check())
+        {
+            return redirect('/login');
+        }
+        else
+        {
         $user = User::find($id);
-        return view('profile.edit', compact('user'));        
+        return view('profile.edit', compact('user'));  
+        }      
     }
     /**
      * Update the specified resource in storage.
@@ -82,6 +89,12 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (!Auth::check())
+        {
+            return redirect('/login');
+        }
+        else
+        {
          $request->validate([
             'first_name'=>'required',
             'last_name'=>'required',
@@ -96,6 +109,7 @@ class ProfileController extends Controller
 
         return redirect('/profile')->with('success', 'User updated!');
     }
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -105,9 +119,16 @@ class ProfileController extends Controller
      */
     public function destroy($id)
     {
+        if (!Auth::check())
+        {
+            return redirect('/login');
+        }
+        else
+        {
         $user = User::find($id);
         $user->delete();
 
         return redirect('/profile')->with('success', 'User deleted!');
+        }
     }
 }

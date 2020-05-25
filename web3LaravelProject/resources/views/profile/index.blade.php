@@ -4,7 +4,7 @@
 @section('main')
 <div class="row">
 <div class="col-sm-12">
-    <h1 class="display-3">Contacts</h1>    
+    <h1 class="display-3">Profiles</h1>    
   <table class="table table-striped">
     <thead>
         <tr>
