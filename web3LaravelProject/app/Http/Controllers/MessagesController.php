@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\Reply;
 use DB;
 
 class MessagesController extends Controller
@@ -64,7 +65,16 @@ class MessagesController extends Controller
     {
         $message = messages::find($id);
         $user = User::find($message->user_id);
-        return view('messages.show', ['user' => $user])->with('message', $message);
+
+        $replies = messages::join('replies', 'replies.message_id', '=', 'messages.id')
+            ->select('replies.*');
+        
+        $replies = User::join('replies', 'replies.sender_id', '=', 'users.id')
+            ->select('replies.*', 'users.first_name') 
+            ->orderBy('created_at', 'desc')   
+            ->paginate(10);
+
+        return view('messages.show', ['user' => $user], ['replies' => $replies])->with('message', $message);
     }
 
     public function edit($id)

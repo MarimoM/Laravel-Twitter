@@ -17,7 +17,7 @@
                  @endif
                  <br>
                 <small><a href="/messages/{{$message->id}}">Show more ...</a></small>
-                <a href="/messages/{{$message->id}}/reply" class="btn btn-light btn-sm float-left">Reply</a>
+                <a href="/messages/{{$message->id}}/reply/create" class="btn btn-light btn-sm float-left">Reply</a>
                  </div>
             </section>
             @endforeach

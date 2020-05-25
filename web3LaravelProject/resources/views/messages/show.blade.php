@@ -2,25 +2,39 @@
 
 @section('main')
 <div class="container mt-5">
-    <h1 class ='jumbotron text-center' >Thread</h1>
-    <h2>{{$user->first_name}}</h2>
-    <small class="float-right">{{$message->created_at}}</small>
-    <div>
+    <div class ='jumbotron' >
+        <h2>{{$user->first_name}}</h2>
+        <small class="float-right">{{$message->created_at}}</small>
         {{$message->text}}
         <br><br>
         @if (!is_null($message->cover_image))
             <img style="width:30%" src="/storage/cover_images/{{$message->cover_image}}">
         @endif
+        <br><br>
+        @if(Auth::id() == $message->user_id)
+        <hr>
+            {!!Form::open(['action' => ['MessagesController@destroy', $message->id], 'method' => 'POST', 'class' => 'float-right'])!!}
+            {{Form::hidden('_method', 'DELETE')}}
+            {{Form::submit('Remove', ['class' => 'btn btn-danger btn-sm float-right'])}}
+            {!!Form::close()!!}
+            <a href="/messages/{{$message->id}}/edit" class="btn btn-primary btn-sm float-right mr-3">Edit</a>
+        @endif
+            <a href="/messages/{{$message->id}}/reply/create" class="btn btn-light btn-sm float-left ">Reply</a>
+        
     </div>
 
-    @if(Auth::id() == $message->user_id)
-    <hr>
-    <a href="/messages/{{$message->id}}/edit" class="btn btn-primary">Edit</a>
-    {!!Form::open(['action' => ['MessagesController@destroy', $message->id], 'method' => 'POST', 'class' => 'float-right'])!!}
-        {{Form::hidden('_method', 'DELETE')}}
-        {{Form::submit('Remove', ['class' => 'btn btn-danger'])}}
-    {!!Form::close()!!}
-    @endif
+    <div>
+        @foreach ($replies as $reply)
+        <section>
+        <div class="card card-body bg-light mt-3">
+            <h4>{{ $reply->first_name}}</h4> 
+            <small class="float-right">{{ $reply->updated_at }}</small>
+            <p>{{ $reply->text }}</p> 
+             <br>
+        </div>
+        </section>
+        @endforeach
+    </div>
 </div>
 
 @endsection

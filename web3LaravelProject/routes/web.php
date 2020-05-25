@@ -21,6 +21,7 @@ Route::get('/', function () {
 });
 
 Route::resource('/messages', 'MessagesController');
+Route::resource('/messages/{message}/reply', 'ReplyController');
 
 Auth::routes();
 
