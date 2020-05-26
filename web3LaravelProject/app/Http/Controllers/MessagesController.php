@@ -103,7 +103,6 @@ class MessagesController extends Controller
 
         $message = messages::find($id);
         $message->text = $request->input('text');
-        $message->text = $request->input('cover_image');
         $message->save();
 
         return redirect('/messages')->with('success', 'Message updated');
