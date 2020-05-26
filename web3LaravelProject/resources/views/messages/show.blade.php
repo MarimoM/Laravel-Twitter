@@ -4,24 +4,31 @@
 
 <div class="container mt-5">
     <div class ='jumbotron' >
-        <h2>{{$user->first_name}}</h2>
-        <small class="float-right">{{$message->created_at}}</small>
-        {{$message->text}}
-        <br><br>
-        @if (!is_null($message->cover_image))
-            <img style="width:30%" src="/storage/cover_images/{{$message->cover_image}}">
-        @endif
-        <br><br>
-        @if(Auth::id() == $message->user_id)
-        <hr>
-            {!!Form::open(['action' => ['MessagesController@destroy', $message->id], 'method' => 'POST', 'class' => 'float-right'])!!}
-            {{Form::hidden('_method', 'DELETE')}}
-            {{Form::submit('Remove', ['class' => 'btn btn-danger btn-sm float-right'])}}
-            {!!Form::close()!!}
-            <a href="/messages/{{$message->id}}/edit" class="btn btn-primary btn-sm float-right mr-3">Edit</a>
-        @endif
-            <a href="/messages/{{$message->id}}/reply/create" class="btn btn-light btn-sm float-left ">Reply</a>
-            <p class="text-center"> {{ count($replies) }} replies </p>
+        <div class="row">
+            <div class="col-sm-540">
+                <img src="{{asset('images/' . $user->profile_image_path)}}" width="100px" height="100px" class="rounded-circle"/>
+            </div>
+            <div class="col-sm">
+                <h2>{{$user->first_name}}</h2>
+                <small class="float-right">{{$message->created_at}}</small>
+                {{$message->text}}
+                <br><br>
+                @if (!is_null($message->cover_image))
+                    <img style="width:30%" src="/storage/cover_images/{{$message->cover_image}}">
+                @endif
+                <br><br>
+                @if(Auth::id() == $message->user_id)
+                <hr>
+                    {!!Form::open(['action' => ['MessagesController@destroy', $message->id], 'method' => 'POST', 'class' => 'float-right'])!!}
+                    {{Form::hidden('_method', 'DELETE')}}
+                    {{Form::submit('Remove', ['class' => 'btn btn-danger btn-sm float-right'])}}
+                    {!!Form::close()!!}
+                    <a href="/messages/{{$message->id}}/edit" class="btn btn-primary btn-sm float-right mr-3">Edit</a>
+                @endif
+                    <a href="/messages/{{$message->id}}/reply/create" class="btn btn-light btn-sm float-left ">Reply</a>
+                    <p class="text-center"> {{ count($replies) }} replies </p>
+            </div>
+        </div>
     </div>
 
     <div>

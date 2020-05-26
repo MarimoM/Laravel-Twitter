@@ -15,7 +15,7 @@ class MessagesController extends Controller
     public function index()
     {
         $messages = messages::join('users', 'users.id', '=', 'messages.user_id')
-            ->select('messages.*', 'users.first_name') 
+            ->select('messages.*', 'users.first_name', 'users.profile_image_path') 
             ->orderBy('created_at', 'desc')   
             ->paginate(10);
 
@@ -103,6 +103,7 @@ class MessagesController extends Controller
 
         $message = messages::find($id);
         $message->text = $request->input('text');
+        $message->text = $request->input('cover_image');
         $message->save();
 
         return redirect('/messages')->with('success', 'Message updated');
