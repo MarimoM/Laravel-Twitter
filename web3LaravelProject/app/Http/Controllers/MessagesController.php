@@ -44,6 +44,9 @@ class MessagesController extends Controller
             'cover_image' => 'image|nullable|max:1999'
         ]);
 
+
+        $fileNameToStore = NULL;
+        
         if($request->hasFile('cover_image'))
         {
             $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
