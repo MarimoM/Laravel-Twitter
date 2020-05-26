@@ -107,10 +107,17 @@ class ProfileController extends Controller
         $user->last_name =  $request->get('last_name');
         $user->email = $request->get('email');
 
-        //Used for storing image path in public/images
-        $image = $request->file('image');
-        $path = public_path(). '/images/';
-        $filename = time() . '.' . $image->getClientOriginalExtension();
+        if($request->hasFile('image'))
+        {
+            //Used for storing image path in public/images
+            $image = $request->file('image');
+            $path = public_path(). '/images/';
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+        }
+        else{
+            $fileName = 'noimagemale.jpg';
+        }
+
         $image->move($path, $filename);
         $user->profile_image_path = $filename;
 

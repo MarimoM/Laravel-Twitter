@@ -64,6 +64,11 @@ class MessagesController extends Controller
 
     public function show($id)
     {
+        if (!Auth::check())
+        {
+            return redirect('/login');
+        }
+
         $message = messages::find($id);
         $user = User::find($message->user_id);
         

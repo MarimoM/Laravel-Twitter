@@ -5,7 +5,7 @@
 <div class="row">
 <div class="col-sm-12">
     <h1 class="display-3">Your profile</h1>    
-    <img src="{{asset('images/' . $user->profile_image_path)}}" width="250px" height="250px" alt="MISSING JPG"/> 
+    <img src="{{asset('images/' . $user->profile_image_path)}}" width="250px" height="250px" alt="MISSING JPG" class="rounded-circle"/> 
   <table class="table table-striped">
     <thead>
         <tr>
