@@ -3,7 +3,7 @@
 @section('main')
 <div class="container mt-5">
     <div class ='jumbotron' >
-        <h2>{{$sender->first_name}}</h2>
+        <h2>{{$owner->first_name}}</h2>
         <small class="float-right">{{$message->created_at}}</small>
         {{$message->text}}
         <br><br>
