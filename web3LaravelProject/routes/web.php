@@ -43,3 +43,5 @@ Route::resource('/messages/{message}/reply', 'ReplyController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::get('/pdf','PdfController@downloadPdf');

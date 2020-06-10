@@ -20,6 +20,7 @@
                     </ul>
                 </li>
                 @else
+                    <a href="{{action('PdfController@downloadPdf')}}">Download my posts as PDF</a>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             {{ Auth::user()->first_name }} <span class="caret"></span>
