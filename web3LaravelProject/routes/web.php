@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
     if(Auth::check())
         return redirect('/messages');
@@ -27,10 +26,16 @@ Route::get('/profile', function () {
         return view('main');
 });
 
-
-
+Route::get('/chat', function () {
+    if(Auth::check())
+        return redirect('/chat');
+    else
+        return view('main');
+});
 
 Route::resource('profile', 'ProfileController');
+Route::resource('/chat', 'ChatController');
+Route::get('chat/{chat}', 'ChatController@show')->name('chat.show');
 
 Route::resource('/messages', 'MessagesController');
 Route::resource('/messages/{message}/reply', 'ReplyController');

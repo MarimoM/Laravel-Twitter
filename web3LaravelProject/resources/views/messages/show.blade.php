@@ -13,9 +13,20 @@
                 <small class="float-right">{{$message->created_at}}</small>
                 {{$message->text}}
                 <br><br>
-                @if (!is_null($message->cover_image))
-                    <img style="width:30%" src="/storage/cover_images/{{$message->cover_image}}">
-                @endif
+                <div class="container">
+                    <div class="row">
+                        @if (!is_null($message->cover_image))
+                            @php $images = json_decode($message->cover_image,true); @endphp
+                            @if(is_array($images) && !empty($images))
+                                @foreach ($images as $image)
+                                <div class="col">
+                                    <img class="mw-100", height="mh-100" src="/storage/cover_images/{{$image}}">
+                                </div>
+                                @endforeach
+                            @endif
+                        @endif
+                    </div>
+                </div>
                 <br><br>
                 @if(Auth::id() == $message->user_id)
                 <hr>

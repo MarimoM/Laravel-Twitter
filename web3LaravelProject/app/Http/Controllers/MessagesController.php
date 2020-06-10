@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\messages;
+use Intervention\Image\Facades\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
@@ -41,7 +42,7 @@ class MessagesController extends Controller
 
         $request->validate([
             'text' => 'required|max:150',
-            'cover_image' => 'image|nullable|max:1999'
+            'cover_image.*' => 'mimes:jpg,png,jpeg,gif'
         ]);
 
 
@@ -49,17 +50,24 @@ class MessagesController extends Controller
         
         if($request->hasFile('cover_image'))
         {
-            $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $extention = $request->file('cover_image')->getClientOriginalExtension();
-            $fileNameToStore = $filename.'_'.time().'.'.$extention;
-            $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
+            foreach($request->file('cover_image') as $file){
+
+                $image = Image::make($file);
+                $image->insert(public_path('watermark/Logo.png'), 'bottom-right', 10, 10);
+                $filenameWithExt = $file->getClientOriginalName();
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                $extention = $file->getClientOriginalExtension();
+                $fileNameToStore = $filename.'_'.time().'.'.$extention;
+                $image->save(public_path('storage/cover_images/'.$fileNameToStore));
+
+                $data[] = $fileNameToStore;
+            }
         }
 
         $message = new messages;
         $message->text = $request->text;
         $message->user_id = auth()->User()->id;
-        $message->cover_image = $fileNameToStore;
+        $message->cover_image = json_encode($data);
         $message->save();
 
         return redirect('/messages')->with('success', 'Message sent');
@@ -98,8 +106,29 @@ class MessagesController extends Controller
         }
 
         $request->validate([
-            'text' => 'required|max:150'
+            'text' => 'required|max:150',
+            'cover_image' => 'image|nullable|max:1999'
         ]);
+
+        //delete old image
+        if(!is_null($message->cover_image)){
+            Storage::delete('public/cover_images/'.$message->cover_image);
+        }
+
+        if($request->hasFile('cover_image'))
+        {
+            foreach($request->File('cover_image') as $file){
+                $filenameWithExt = $file->getClientOriginalName();
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                $extention = $file->getClientOriginalExtension();
+                $fileNameToStore = $filename.'_'.time().'.'.$extention;
+                $path = $file->storeAs('public/cover_images', $fileNameToStore);
+
+                //save image
+                $message->cover_image = $fileNameToStore;
+                $message->save();
+            }
+        }
 
         $message = messages::find($id);
         $message->text = $request->input('text');
