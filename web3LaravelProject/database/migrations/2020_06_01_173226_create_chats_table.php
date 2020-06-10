@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ImagesInMessages extends Migration
+class CreateChatsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,13 @@ class ImagesInMessages extends Migration
      */
     public function up()
     {
-        Schema::table('messages', function ($table) {
-            $table->string('cover_image')->nullable();
+        Schema::create('chats', function (Blueprint $table) {
+            $table->id();
+            $table->bigInteger('from');
+            $table->bigInteger('to');
+            $table->text('message');
+            $table->tinyInteger('is_read');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +30,6 @@ class ImagesInMessages extends Migration
      */
     public function down()
     {
-        Schema::table('messages', function ($table) {
-            $table->dropColumn('cover_image');
-        });
+        Schema::dropIfExists('chats');
     }
 }

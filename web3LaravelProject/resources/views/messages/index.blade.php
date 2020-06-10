@@ -13,10 +13,21 @@
                 <small class="float-right">{{ $message->updated_at }}</small>
                 <br>
                 <p>{{ $message->text }}</p> 
-                @if (!is_null($message->cover_image))
-                    <img style="width:30%" src="/storage/cover_images/{{$message->cover_image}}">
-                 @endif
-                 <br>
+                <div class="container">
+                    <div class="row">
+                        @if (!is_null($message->cover_image))
+                            @php $images = json_decode($message->cover_image,true); @endphp
+                            @if(is_array($images) && !empty($images))
+                                @foreach ($images as $image)
+                                <div class="col">
+                                    <img width="300px", height="auto" src="/storage/cover_images/{{$image}}">
+                                </div>
+                                @endforeach
+                            @endif
+                        @endif
+                    </div>
+                </div>
+                <br>
                 <small><a href="/messages/{{$message->id}}">Show more ...</a></small>
                 <a href="/messages/{{$message->id}}/reply/create" class="btn btn-light btn-sm float-left">Reply</a>
                  </div>

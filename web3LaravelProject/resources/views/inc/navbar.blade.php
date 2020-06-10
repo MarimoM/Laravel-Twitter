@@ -27,6 +27,7 @@
 
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="/profile">Profile</a></li>
+                            <li><a href="/chat">Chat</a></li>
                             <li><a href="/messages/create">Write a message</a></li>
                             <li>
                                 <a href="{{ route('logout') }}"
