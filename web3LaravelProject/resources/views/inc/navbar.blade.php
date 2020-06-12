@@ -21,6 +21,10 @@
                 </li>
                 @else
                     <a href="{{action('PdfController@downloadPdf')}}">Download my posts as PDF</a>
+
+                    @if (Auth::user()->user_role == 1)
+                    <a href="/profile">Admin</a>
+                    @endif
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             {{ Auth::user()->first_name }} <span class="caret"></span>

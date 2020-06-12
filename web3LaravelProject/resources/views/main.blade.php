@@ -13,6 +13,7 @@
             @endif
         <ul>
             @if (Auth::check())
+
                 <div class="container mt-5">
                 @section ('main')
                 @show

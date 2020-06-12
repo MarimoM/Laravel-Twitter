@@ -16,9 +16,15 @@ class ProfileController extends Controller
      */
     public function index()
     {
+        if (Auth::user()->user_role == 1) {
         $users = User::All();
 
         return view('profile.index', compact('users'));
+        }
+            else
+        {
+            return redirect('/messages');
+        }
     }
 
     /**
@@ -50,7 +56,7 @@ class ProfileController extends Controller
      */
     public function show($id)
     {   
-        if (Auth::user()->id == $id) {
+        if (Auth::user()->id == $id || Auth::user()->user_role == 1) {
 
         $user = User::find($id);
         return view('profile.show', compact('user'));
@@ -70,14 +76,14 @@ class ProfileController extends Controller
     public function edit($id)
     
     {
-        if (!Auth::check())
-        {
-            return redirect('/login');
-        }
-        else
+        if (Auth::user()->id == $id || Auth::user()->user_role == 1) 
         {
         $user = User::find($id);
         return view('profile.edit', compact('user'));  
+        }
+        else
+        {   
+            return redirect('/messages');
         }      
     }
     /**
@@ -89,11 +95,7 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if (!Auth::check())
-        {
-            return redirect('/login');
-        }
-        else
+        if (Auth::user()->id == $id || Auth::user()->user_role == 1) 
         {
          $request->validate([
             'first_name'=>'required',
@@ -124,7 +126,11 @@ class ProfileController extends Controller
         $user->save();
 
         return redirect('/profile')->with('success', 'User updated!');
-    }
+        }
+        else
+        {   
+            return redirect('/messages');
+        } 
     }
 
     /**
@@ -135,16 +141,16 @@ class ProfileController extends Controller
      */
     public function destroy($id)
     {
-        if (!Auth::check())
-        {
-            return redirect('/login');
-        }
-        else
+        if (Auth::user()->id == $id || Auth::user()->user_role == 1) 
         {
         $user = User::find($id);
         $user->delete();
 
         return redirect('/profile')->with('success', 'User deleted!');
+        }
+        else
+        {
+            return redirect('/messages');
         }
     }
 }
