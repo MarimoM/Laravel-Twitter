@@ -23,6 +23,7 @@
                     <a href="{{action('PdfController@downloadPdf')}}">Download my posts as PDF</a>
 
                     @if (Auth::user()->user_role == 1)
+                    <a href="/export">Export users to excel</a>
                     <a href="/profile">Admin</a>
                     @endif
                     <li class="dropdown">
