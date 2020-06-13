@@ -14,6 +14,8 @@ should also be circle shaped.
 In this section users with sufficient rights should be able to
 CRUD all the content & users.  (Only applicable for CRUD use on users.)
 
+Additional features: message replies (CRUD), multiple image upload in messages and view. 
+
 
 Overall this app lets you make posts on your profile page where other people can reply too. You are able to chat with other people on this platform privately.
 You are able to download your own posts as a PDF file and if you're an admin you can download all the user info as an excel file.
